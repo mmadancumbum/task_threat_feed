@@ -1,0 +1,10 @@
+indicator,type,confidence,source,first_seen
+192.0.2.1,ipv4,70,sample,2026-01-10
+Example.COM,domain,60,sample,2026-01-05
+example.com.,domain,90,partner,2025-12-01
+https://EXAMPLE.com:443/path,url,80,sample,2026-01-12
+d41d8cd98f00b204e9800998ecf8427e,md5,50,sample,2026-01-01
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,sha256,100,sample,2026-01-01
+999.1.1.1,ipv4,80,sample,2026-01-01
+bad.example,domain,101,sample,2026-01-01
+oops,md5,20,sample,2026-01-01
