@@ -173,7 +173,7 @@ This stops containers while preserving their data volumes.
 
 ## Submission notes and limitations
 
-See `PROMPTS.md` and `BUILD_NOTES.md` for the actual user prompts, observed timing, AI correction notes and usage-reporting limits. The source repository is [mmadancumbum/task_threat_feed](https://github.com/mmadancumbum/task_threat_feed). Do not add `.env`, the generated 100k CSV, or runtime data. The original assessment CSV, exact token usage, and exact first-prompt timestamp still need to be supplied by the applicant before final submission.
+See `PROMPTS.md` and `BUILD_NOTES.md` for the user prompts, measured build timing, recorded token usage and AI correction notes. The source repository is [mmadancumbum/task_threat_feed](https://github.com/mmadancumbum/task_threat_feed). Do not add `.env`, the generated 100k CSV, or runtime data. The original assessment CSV was not available in this workspace; the deterministic generated CSV is used for repeatable local testing.
 
 Next improvements: parallel job leasing with atomic MySQL upserts and reliable new/merged accounting, bounded request streaming before multipart spooling, file retention/cleanup, source provenance, database migrations, indexes for high-volume error pagination, frontend browser tests, and cancellation/retry controls. The UI shows only the latest 30 jobs. One worker handles all ingestion sequentially. This is intended as a readable assessment core that can be explained in an interview.
 
