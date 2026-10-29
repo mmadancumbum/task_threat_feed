@@ -1,0 +1,37 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in the project .env}
+      MYSQL_DATABASE: threat_feed
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  api:
+    build: ./backend
+    environment: &backend_environment
+      DATABASE_URL: mysql+pymysql://root:${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in the project .env}@mysql:3306/threat_feed?charset=utf8mb4
+      DATA_DIR: /data/uploads
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      mysql: {condition: service_healthy}
+  worker:
+    build: ./backend
+    command: ["python", "-m", "app.worker"]
+    environment: *backend_environment
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      mysql: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    ports: ["8080:80"]
+    depends_on: [api]
+volumes:
+  mysql_data:
+  uploads:
